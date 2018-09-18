@@ -24,9 +24,7 @@ Route::get('/index', function(){
 	return view('element.content');
 })->name('index');
 
-Route::get('/siswa', function(){
-	return view('page.siswa');
-})->name('siswa');
+Route::get('/siswa', 'siswacontroller@index')->name('siswa');
 Route::get('/kelas', function(){
 	return view('page.kelas');
 })->name('kelas');
