@@ -17,10 +17,10 @@ class CreateSiswasTable extends Migration
             $table->increments('id');
             $table->string('nisn',30);
             $table->string('nama',25);
-            $table->enum('jenis_kelamin',array('pria', 'wanita', 'unknown'))->default('unknown'));
+            $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->string('jurusan',15);
-            $table->integer('kelas',2);
+            $table->integer('kelas');
             $table->string('subkelas',1);
             $table->timestamps();
         });
