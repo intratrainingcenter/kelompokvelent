@@ -25,9 +25,7 @@ Route::get('/index', function(){
 })->name('index');
 
 Route::get('/siswa', 'siswacontroller@index')->name('siswa');
-Route::get('/kelas', function(){
-	return view('page.kelas');
-})->name('kelas');
+// Route::get('/kelas', 'kelascontroller@index')->name('kelas');
 Route::get('/mapel', function(){
 	return view('page.mapel');
 })->name('mapel');
@@ -42,6 +40,7 @@ Route::get('/piket', function(){
 // Route::get('/sidebar', function(){
 // 	return view('element.sidebar');
 // })->name('sidebar');
+Route::resource('/kelas','kelascontroller');
 
 Route::resource('/indexresource', 'testpagecontrollerApi');
 

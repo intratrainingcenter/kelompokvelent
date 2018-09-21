@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\kelas;
 
 class kelascontroller extends Controller
 {
@@ -13,7 +14,10 @@ class kelascontroller extends Controller
      */
     public function index()
     {
-        //
+        
+        $data = kelas::all();
+        // dd($data);
+        return view('page.kelas',['data'=>$data]);
     }
 
     /**
@@ -34,7 +38,13 @@ class kelascontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $data = new kelas;
+        $data->nama_kelas = $request->nama_kelas;
+        $data->jumlah_murid = $request->jumlah_murid;
+        $data->wali_kelas = $request->wali_kelas;
+        $data->save();
+        return redirect()->route('kelas.index');
     }
 
     /**

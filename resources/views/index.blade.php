@@ -300,5 +300,7 @@
 <script src="{{asset('AdminLTE-2.4.5/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('AdminLTE-2.4.5/dist/js/demo.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@yield('js')
 </body>
 </html>
