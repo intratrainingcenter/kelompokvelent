@@ -21,7 +21,7 @@ Route::get('/test', function () {
 Route::get('/nama/{sarkom}','testpagecontroller@sarkom')->middleware('sarkom');
 
 Route::get('/index', function(){
-	return view('element.content');
+	return view('page.index');
 })->name('index');
 
 Route::get('/siswa', 'siswacontroller@index')->name('siswa');
