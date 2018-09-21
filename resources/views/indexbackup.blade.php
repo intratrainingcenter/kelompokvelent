@@ -46,22 +46,7 @@
   @include('layout.side')
   <!-- Left side column. contains the logo and sidebar -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        @yield('CHeader')
-        <small>@yield('CHeader')</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">@yield('CActive')</li>
-      </ol>
-    </section>
-    @yield('content')
-  </div>
-  <!-- /.content-wrapper -->
+  @yield('content')
   
   <!-- /.content-wrapper -->
   @include('layout.foot')
@@ -275,7 +260,6 @@
 <!-- Morris.js charts -->
 <script src="{{asset('AdminLTE-2.4.5/bower_components/raphael/raphael.min.js')}}"></script>
 <script src="{{asset('AdminLTE-2.4.5/bower_components/morris.js/morris.min.js')}}"></script>
-
 <!-- Sparkline -->
 <script src="{{asset('AdminLTE-2.4.5/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
 <!-- jvectormap -->

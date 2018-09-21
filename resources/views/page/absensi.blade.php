@@ -4,15 +4,12 @@
 @section('CActive', 'Absensi')
 @section('content')
 
-<!-- Content Header (Page header) -->
-    
-    <!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+      <!-- Small boxes (Stat box) -->
+      
+      <!-- /.row (main row) -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        
-      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 
