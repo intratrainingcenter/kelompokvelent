@@ -21,12 +21,10 @@ Route::get('/test', function () {
 Route::get('/nama/{sarkom}','testpagecontroller@sarkom')->middleware('sarkom');
 
 Route::get('/index', function(){
-	return view('element.content');
+	return view('page.index');
 })->name('index');
 
-Route::get('/siswa', function(){
-	return view('page.siswa');
-})->name('siswa');
+Route::get('/siswa', 'siswacontroller@index')->name('siswa');
 Route::get('/kelas', function(){
 	return view('page.kelas');
 })->name('kelas');
