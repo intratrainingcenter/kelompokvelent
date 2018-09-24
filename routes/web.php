@@ -12,7 +12,7 @@ use App\Http\Middleware\sarkom;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('indexbackup');
 });
 Route::get('/test', function () {
 	return '<h1 align="center" style="margin-top:200px;">Serangan Mendadak,Main Kotor Curangi Saya</h1>';

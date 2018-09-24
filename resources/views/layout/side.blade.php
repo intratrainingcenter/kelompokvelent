@@ -18,7 +18,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Dashboard</li>
         
-        <li><a href="{{route('siswa')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="{{route('index')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       </ul>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menu</li>
