@@ -12,7 +12,7 @@ use App\Http\Middleware\sarkom;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('indexbackup');
 });
 Route::get('/test', function () {
 	return '<h1 align="center" style="margin-top:200px;">Serangan Mendadak,Main Kotor Curangi Saya</h1>';
@@ -24,8 +24,10 @@ Route::get('/index', function(){
 	return view('page.index');
 })->name('index');
 
-Route::get('/siswa', 'siswacontroller@index')->name('siswa');
-// Route::get('/kelas', 'kelascontroller@index')->name('kelas');
+Route::resource('/siswa', 'siswacontroller');
+Route::get('/kelas', function(){
+	return view('page.kelas');
+})->name('kelas');
 Route::get('/mapel', function(){
 	return view('page.mapel');
 })->name('mapel');

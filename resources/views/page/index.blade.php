@@ -1,13 +1,11 @@
 @extends('index')
 
-@section('CHeader', 'Dashboard')
-@section('CActive', 'Dashboard')
+@section('CHeader', 'Jadwal Piket')
+@section('CActive', 'Piket')
 @section('content')
 
-
-    <!-- Main content -->
-    <section class="content">
-      <!-- Small boxes (Stat box) -->
+<!-- Main content -->
+<section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-3 col-xs-6">
@@ -71,11 +69,9 @@
         </div>
         <!-- ./col -->
       </div>
-      <!-- /.row -->
       <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->
-
 
 @endsection
