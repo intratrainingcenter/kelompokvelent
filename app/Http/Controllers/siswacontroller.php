@@ -13,8 +13,9 @@ class siswacontroller extends Controller
      */
     public function index()
     {
-        
-        return view('page.siswa');
+        $data = siswa::all();
+        //dd($data);
+        return view('page.siswa', compact('data'));
     }
 
     /**
@@ -35,7 +36,16 @@ class siswacontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nisn' => 'required',
+            'nama' => 'required'
+        ]);
+        $data = new siswa([
+            'nisn' => $request->get('nisn'),
+            'nama' => $request->get('nama')
+        ]);
+        $data->save();
+        return redirect()->route('siswa.index')->with('success', 'Data Telah Ditambahkan');
     }
 
     /**
@@ -80,6 +90,10 @@ class siswacontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = siswa::find($id);
+        //dd($data);  
+        $data->delete();
+        return redirect()->route('siswa.index')
+                ->with('success', 'Data Deleted Successfully');
     }
 }

@@ -19,9 +19,7 @@ class CreateSiswasTable extends Migration
             $table->string('nama',25);
             $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
-            $table->string('jurusan',15);
             $table->integer('kelas');
-            $table->string('subkelas',1);
             $table->timestamps();
         });
     }
