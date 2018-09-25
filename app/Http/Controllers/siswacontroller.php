@@ -72,7 +72,8 @@ class siswacontroller extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = siswa::find($id);
+        return view('page.siswa.editsiswa',compact('data','id'));
     }
 
     /**
@@ -84,7 +85,15 @@ class siswacontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nisn'    =>  'required',
+            'nama'     =>  'required'
+        ]);
+        $student = siswa::find($id);
+        $student->nisn = $request->get('nisn');
+        $student->nama = $request->get('nama');
+        $student->save();
+        return redirect()->route('siswa.index')->with('success', 'Data Updated');
     }
 
     /**

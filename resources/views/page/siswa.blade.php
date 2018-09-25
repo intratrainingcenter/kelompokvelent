@@ -36,7 +36,7 @@
                   <td>{{$data->nama}}</td>
                   <td>{{ $data->kelas}}</td>
                   <td><form method="post" action="">
-                      <a href="" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
+                      <a href="{{action('siswacontroller@edit', $data->id)}}" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
                     </form>
                   </td>
                 </tr>
