@@ -18,7 +18,7 @@ class SiswasTableSeeder extends Seeder
             'nama'	=>	'Val',
             'jenis_kelamin' => 'pria',
             'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
-            'kelas' => '3 a',
+            'kelas' => '3',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
 
@@ -28,7 +28,7 @@ class SiswasTableSeeder extends Seeder
                 'nama'	=>	'Val',
                 'jenis_kelamin' => 'pria',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
-                'kelas' => '3 b',
+                'kelas' => '3',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
     
