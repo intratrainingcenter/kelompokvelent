@@ -14,7 +14,7 @@
   @endif
 
 	<div style="position: relative; left: 89%;">
-		<button id="btn_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Add Class</button>
+		<button id="button_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Add Class</button>
 	</div>
 		
       <!-- Small boxes (Stat box) -->
@@ -46,15 +46,15 @@
 	                </tr>
               	</thead>
                 <tbody>
-                	@foreach($data as $n => $dt)
+                	@foreach($data as $number => $data)
 	                <tr>
-	                  <td>{{$n+1}}</td>
-	                  <td>{{$dt->nama_kelas}}</td>
-	                  <td>{{$dt->jumlah_murid}}</td>
-	                  <td>{{$dt->wali_kelas}}</td>
+	                  <td>{{$number+1}}</td>
+	                  <td>{{$data->nama_kelas}}</td>
+	                  <td>{{$data->jumlah_murid}}</td>
+	                  <td>{{$data->wali_kelas}}</td>
 	                  <td>
-	                  	<button style="margin-right: -5px;" type="button" class="btn bg-orange margin" data-toggle="modal" data-target="#modal-edit-{{$dt->id}}"><i class="fa fa-pencil"></i></button>
-	                  	<button type="button" class="btn bg-maroon margin del" data-toggle="modal" data-target="#modal-delete-{{$dt->id}}"><i class="fa fa-trash-o"></i></button>
+	                  	<button style="margin-right: -5px;" type="button" class="btn bg-orange margin" data-toggle="modal" data-target="#modal-edit-{{$data->id}}"><i class="fa fa-pencil"></i></button>
+	                  	<button type="button" class="btn bg-maroon margin del" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"><i class="fa fa-trash-o"></i></button>
 	                  </td>
 	                </tr>
 
@@ -62,7 +62,7 @@
                 <div class="modal fade" id="modal-default" style="display: none;">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                    {!! Form::open(['route' => 'kelas.store','method' => 'post','id'=>'frm_add']) !!}
+                    {!! Form::open(['route' => 'kelas.store','method' => 'post']) !!}
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">×</span></button>
@@ -71,13 +71,13 @@
 
                       <div class="modal-body">              
                       <label>Nama Kelas :</label>
-                      <input name="nama_kelas" type="text" class="form-control" placeholder="...">
+                      <input name="nama_kelas" type="text" class="form-control class_name" placeholder="...">
                       <br>
                       <label>Jumlah Murid :</label>
-                      <input name="jumlah_murid" type="number" class="form-control" placeholder="...">
+                      <input name="jumlah_murid" type="number" class="form-control amount_of_student" placeholder="...">
                       <br>
                       <label>Wali Kelas :</label>
-                      <input name="wali_kelas" type="text" class="form-control" placeholder="...">
+                      <input name="wali_kelas" type="text" class="form-control homeroom_teacher" placeholder="...">
 
                     </div>
                     <div class="modal-footer">
@@ -92,10 +92,10 @@
                 </div>      
 
                 {{-- form edit --}}
-                <div class="modal fade" id="modal-edit-{{$dt->id}}" style="display: none;">
+                <div class="modal fade" id="modal-edit-{{$data->id}}" style="display: none;">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                    {!! Form::open(['route' => ['kelas.update',$dt->id],'method' => 'put']) !!}
+                    {!! Form::open(['route' => ['kelas.update',$data->id],'method' => 'put']) !!}
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">×</span></button>
@@ -104,13 +104,13 @@
                       <div class="modal-body">  
 
                       <label>Nama Kelas :</label>
-                      <input name="nama_kelas" type="text" class="form-control" placeholder="..." value="{{$dt->nama_kelas}}">
+                      <input name="nama_kelas" type="text" class="form-control" placeholder="..." value="{{$data->nama_kelas}}">
                       <br>
                       <label>Jumlah Murid :</label>
-                      <input name="jumlah_murid" type="number" class="form-control" placeholder="..." value="{{$dt->jumlah_murid}}">
+                      <input name="jumlah_murid" type="number" class="form-control" placeholder="..." value="{{$data->jumlah_murid}}">
                       <br>
                       <label>Wali Kelas :</label>
-                      <input name="wali_kelas" type="text" class="form-control" placeholder="..." value="{{$dt->wali_kelas}}">
+                      <input name="wali_kelas" type="text" class="form-control" placeholder="..." value="{{$data->wali_kelas}}">
 
                       </div>
                       <div class="modal-footer">
@@ -125,10 +125,10 @@
                 </div>      
 
                     {{-- form hapus --}}
-                  <div class="modal fade" id="modal-delete-{{$dt->id}}" style="display: none;">
+                  <div class="modal fade" id="modal-delete-{{$data->id}}" style="display: none;">
                       <div class="modal-dialog">
                         <div class="modal-content">
-                        {!! Form::open(['route' => ['kelas.destroy',$dt->id],'method' => 'delete']) !!}
+                        {!! Form::open(['route' => ['kelas.destroy',$data->id],'method' => 'delete']) !!}
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">×</span></button>
@@ -138,7 +138,7 @@
                            <center> 
                               <input type="hidden" name="id_delete" id="id_delete">
                               <h3>Confirmation!</h3>
-                              <h4 class="statement">Apakah anda ingin menghapus kelas {{$dt->nama_kelas}} ?</h4>
+                              <h4 class="statement">Apakah anda ingin menghapus kelas {{$data->nama_kelas}} ?</h4>
                            </center>
                           </div>
                           <div class="modal-footer">
@@ -170,8 +170,13 @@
 @section('js')
 	  	<script>
         	$(document).ready(function() {
-        		$('#btn_add').click(function(event) {
-        			$('form :input').val('');
+
+            // empty the input after button add click
+        		$('#button_add').click(function(event) {
+        			$('.class_name').val('');
+              $('.amount_of_student').val('');
+              $('.homeroom_teacher').val('');
         		});
+          });
       </script>
 @endsection
