@@ -20,6 +20,15 @@
                   <input type="text" name="nama" value="{{$data->nama}}" class="form-control" id="inputSuccess" placeholder="Nama Siswa / Siswi ...">
                   <span class="help-block">Help block with success</span>
                 </div>
+                <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input value="{{$data->tanggal_lahir}}" name="tanggal_lahir" type="date" class="form-control pull-right" id="datepicker">
+                </div>
                 <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Kelas</label>
                   <input type="text" name="kelas" value="{{$data->kelas}}" class="form-control" id="inputSuccess" placeholder="Kelas ...">
