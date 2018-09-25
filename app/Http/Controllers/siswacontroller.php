@@ -42,8 +42,11 @@ class siswacontroller extends Controller
         ]);
         $data = new siswa([
             'nisn' => $request->get('nisn'),
-            'nama' => $request->get('nama')
+            'nama' => $request->get('nama'),
+            'kelas' => $request->get('kelas'),
+            'jenis_kelamin' => $request->get('jenis_kelamin')
         ]);
+        dd($data);
         $data->save();
         return redirect()->route('siswa.index')->with('success', 'Data Telah Ditambahkan');
     }
