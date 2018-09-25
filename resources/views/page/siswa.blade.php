@@ -97,24 +97,24 @@
                 {{csrf_field()}}
               <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>NISN</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <input type="text" name="nisn" class="form-control" id="inputSuccess" placeholder="NISN ...">
                   <span class="help-block">Help block with success</span>
                 </div>
                 <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Nama</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <input type="text" name="nama" class="form-control" id="inputSuccess" placeholder="Nama Siswa / Siswi ...">
                   <span class="help-block">Help block with success</span>
                 </div>
                 <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Kelas</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <input type="text" name="kelas" class="form-control" id="inputSuccess" placeholder="Kelas ...">
                   <span class="help-block">Help block with success</span>
                 </div>
                 <div class="form-group">
                   <label>Select</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
+                  <select name="jenis_kelamin" class="form-control">
+                    <option value="Laki-Laki">Laki-Laki</option>
+                    <option value="Perempuan">Perempuan</option>
                    
                   </select>
                 </div>

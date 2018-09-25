@@ -36,6 +36,7 @@ class siswacontroller extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate($request,[
             'nisn' => 'required',
             'nama' => 'required'
@@ -44,9 +45,10 @@ class siswacontroller extends Controller
             'nisn' => $request->get('nisn'),
             'nama' => $request->get('nama'),
             'kelas' => $request->get('kelas'),
+            'tanggal_lahir' => $request->get('tanggal_lahir'),
             'jenis_kelamin' => $request->get('jenis_kelamin')
         ]);
-        dd($data);
+        
         $data->save();
         return redirect()->route('siswa.index')->with('success', 'Data Telah Ditambahkan');
     }
