@@ -10,9 +10,10 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
-              <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-default">
-                Launch Default Modal
-              </button>
+             
+              <a class="btn btn-app pull-right" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-edit"></i> Tambah Siswa
+              </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -92,12 +93,43 @@
                 <h4 class="modal-title">Default Modal</h4>
               </div>
               <div class="modal-body">
-                <p>One fine body&hellip;</p>
+                <form method="post" action="{{url('siswa')}}">
+                {{csrf_field()}}
+              <div class="form-group has-success">
+                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>NISN</label>
+                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <span class="help-block">Help block with success</span>
+                </div>
+                <div class="form-group has-success">
+                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Nama</label>
+                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <span class="help-block">Help block with success</span>
+                </div>
+                <div class="form-group has-success">
+                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Kelas</label>
+                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <span class="help-block">Help block with success</span>
+                </div>
+                <div class="form-group">
+                  <label>Select</label>
+                  <select class="form-control">
+                    <option>option 1</option>
+                    <option>option 2</option>
+                   
+                  </select>
+                </div>
+                <div class="form-group">
+                  
+                </div>
+                
+
               </div>
+              
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" />
               </div>
+              </form>
             </div>
             <!-- /.modal-content -->
           </div>

@@ -42,6 +42,7 @@ Route::get('/piket', function(){
 // Route::get('/sidebar', function(){
 // 	return view('element.sidebar');
 // })->name('sidebar');
+Route::resource('/kelas','kelascontroller');
 
 Route::resource('/indexresource', 'testpagecontrollerApi');
 
