@@ -3,10 +3,38 @@
 @section('CHeader', 'Data Siswa')
 @section('CActive', 'Siswa')
 @section('content')
+<script type="text/javascript">
+  setTimeout(fade_out, 3000);
+
+function fade_out() {
+  $("#mydiv").fadeOut().empty();
+}
+  </script>
 
 <!-- Main content -->
 <section class="content">
       <!-- Small boxes (Stat box) -->
+      @if(count($errors) > 0)
+                <div class="alert alert-danger" id="mydiv">
+                 <ul>
+                 @foreach($errors->all() as $error)
+                  <li>{{$error}}</li>
+                 @endforeach
+                 </ul>
+                </div>
+                @endif
+                @if($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible" role="alert" id="mydiv">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>{{$message}}</strong>
+              </div>
+            @endif
+            @if($message = Session::get('warning'))
+            <div class="alert alert-danger alert-dismissible" role="alert" id="mydiv">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>{{$message}}</strong>
+              </div>
+            @endif
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
@@ -23,6 +51,7 @@
                   <th>No</th>
                   <th>NISN</th>
                   <th>Nama Siswa</th>
+                  <th>Tanggal Lahir</th>
                   <th>Kelas</th>
                   <th>Opsi</th>
                 </tr>
@@ -34,9 +63,10 @@
                   <td>{{$data->nisn}}
                   </td>
                   <td>{{$data->nama}}</td>
+                  <td>{{$data->tanggal_lahir}}</td>
                   <td>{{ $data->kelas}}</td>
                   <td><form method="post" action="">
-                      <a href="" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
+                      <a href="{{action('siswacontroller@edit', $data->id)}}" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -71,6 +101,7 @@
                   <th>No</th>
                   <th>NISN</th>
                   <th>Nama Siswa</th>
+                  <th>Tanggal Lahir</th>
                   <th>Kelas</th>
                   <th>Opsi</th>
                 </tr>
@@ -97,24 +128,36 @@
                 {{csrf_field()}}
               <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>NISN</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <input type="text" name="nisn" class="form-control" id="inputSuccess" placeholder="NISN ...">
                   <span class="help-block">Help block with success</span>
                 </div>
                 <div class="form-group has-success">
                   <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Nama</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
-                  <span class="help-block">Help block with success</span>
-                </div>
-                <div class="form-group has-success">
-                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Kelas</label>
-                  <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
+                  <input type="text" name="nama" class="form-control" id="inputSuccess" placeholder="Nama Siswa / Siswi ...">
                   <span class="help-block">Help block with success</span>
                 </div>
                 <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input name="tanggal_lahir" type="date" class="form-control pull-right" id="datepicker">
+                </div>
+                <div class="form-group has-success">
+                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Kelas</label>
+                  <input type="text" name="kelas" class="form-control" id="inputSuccess" placeholder="Kelas ...">
+                  <span class="help-block">Help block with success</span>
+                </div>
+                
+                <!-- /.input group -->
+              </div>
+                <div class="form-group">
                   <label>Select</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
+                  <select name="jenis_kelamin" class="form-control">
+                    <option value="Laki-Laki">Laki-Laki</option>
+                    <option value="Perempuan">Perempuan</option>
                    
                   </select>
                 </div>
@@ -135,27 +178,7 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-    <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
-              </div>
-              <div class="modal-body">
-                <p>One fine body&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
+    
         
 
         
