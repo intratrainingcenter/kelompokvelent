@@ -31,18 +31,16 @@ Route::get('/kelas', function(){
 Route::get('/mapel', function(){
 	return view('page.mapel');
 })->name('mapel');
-Route::get('/absensi', function(){
-	return view('page.absensi');
-})->name('absensi');
+// Route::get('/absensi', function(){
+// 	return view('page.absensi');
+// })->name('absensi');
 Route::get('/piket', function(){
 	return view('page.piket');
 })->name('piket');
 
-
-// Route::get('/sidebar', function(){
-// 	return view('element.sidebar');
-// })->name('sidebar');
 Route::resource('/kelas','kelascontroller');
+
+Route::resource('/absensi','absensicontroller');
 
 Route::resource('/indexresource', 'testpagecontrollerApi');
 

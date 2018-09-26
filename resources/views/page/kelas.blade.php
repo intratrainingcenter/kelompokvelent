@@ -18,24 +18,12 @@
 	</div>
 		
       <!-- Small boxes (Stat box) -->
-      	<div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">List Kelas</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+             <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
               	<thead>
               		 <tr>
 	                  <th>No</th>
@@ -57,39 +45,6 @@
 	                  	<button type="button" class="btn bg-maroon margin del" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"><i class="fa fa-trash-o"></i></button>
 	                  </td>
 	                </tr>
-
-                  {{-- form add --}}
-                <div class="modal fade" id="modal-default" style="display: none;">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                    {!! Form::open(['route' => 'kelas.store','method' => 'post']) !!}
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Add Modal</h4>
-                      </div>
-
-                      <div class="modal-body">              
-                      <label>Nama Kelas :</label>
-                      <input name="nama_kelas" type="text" class="form-control class_name" placeholder="...">
-                      <br>
-                      <label>Jumlah Murid :</label>
-                      <input name="jumlah_murid" type="number" class="form-control amount_of_student" placeholder="...">
-                      <br>
-                      <label>Wali Kelas :</label>
-                      <input name="wali_kelas" type="text" class="form-control homeroom_teacher" placeholder="...">
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                    {!! Form::close() !!}
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>      
 
                 {{-- form edit --}}
                 <div class="modal fade" id="modal-edit-{{$data->id}}" style="display: none;">
@@ -159,11 +114,43 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-        </div>
       <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->
+
+      {{-- form add --}}
+                <div class="modal fade" id="modal-default" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    {!! Form::open(['route' => 'kelas.store','method' => 'post']) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Add Modal</h4>
+                      </div>
+
+                      <div class="modal-body">              
+                      <label>Nama Kelas :</label>
+                      <input name="nama_kelas" type="text" class="form-control class_name" placeholder="...">
+                      <br>
+                      <label>Jumlah Murid :</label>
+                      <input name="jumlah_murid" type="number" class="form-control amount_of_student" placeholder="...">
+                      <br>
+                      <label>Wali Kelas :</label>
+                      <input name="wali_kelas" type="text" class="form-control homeroom_teacher" placeholder="...">
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    {!! Form::close() !!}
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>      
 
 @endsection
 
