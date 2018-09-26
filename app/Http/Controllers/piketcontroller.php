@@ -81,16 +81,10 @@ class piketcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'nisn' => 'required',
-            'jadwalhari' => 'required'
-        ]);
         $data = piket::find($id);
-        $data->nisn = $request->get('nisn');
         $data->jadwalhari = $request->get('jadwalhari');
-        
         $data->save();
-        return redirect()->route('piket.index')->with('success','data tersimpan');
+        return redirect()->route('piket.index')->with('success','Edit Jadwal Piket Succesfully');
     }
 
     /**

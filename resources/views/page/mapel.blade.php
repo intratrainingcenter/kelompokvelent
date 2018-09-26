@@ -52,6 +52,10 @@
                         <h4 class="modal-title">Edit Modal</h4>
                       </div>
                       <div class="modal-body">  
+                      <center> 
+                              <input type="hidden" name="id_delete" id="id_delete">
+                              <h4 class="statement">Ubah Data Mata Pelajaran dengan kode mapel : {{$data->id_mapel}}</h4>
+                           </center>
                       <label>Mata Pelajaran :</label>
                       <input name="mapel" type="text" class="form-control" placeholder="..." value="{{$data->mapel}}" required="">
                       <br>

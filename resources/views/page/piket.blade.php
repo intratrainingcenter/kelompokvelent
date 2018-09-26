@@ -1,143 +1,168 @@
 @extends('index')
 
-@section('CHeader', 'Data Jadwal Piket Siswa')
-@section('CActive', 'Jadwal Piket')
+@section('CHeader', 'Jadwal Piket')
+@section('CActive', 'Piket')
 @section('content')
-<script type="text/javascript">
-  setTimeout(fade_out, 3000);
-
-function fade_out() {
-  $("#mydiv").fadeOut().empty();
-}
-  </script>
 
 <!-- Main content -->
 <section class="content">
+	@if($success = Session::get('success'))
+    <div id="alert" class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h4><i class="icon fa fa-check"></i> Alert! </h4>{{$success}}.
+    </div>
+  @endif
+
+	<div style="position: relative; left: 89%;">
+		<button id="button_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Tambah Data</button>
+	</div>
+		
       <!-- Small boxes (Stat box) -->
-      @if(count($errors) > 0)
-                <div class="alert alert-danger" id="mydiv">
-                 <ul>
-                 @foreach($errors->all() as $error)
-                  <li>{{$error}}</li>
-                 @endforeach
-                 </ul>
-                </div>
-                @endif
-                @if($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible" role="alert" id="mydiv">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>{{$message}}</strong>
-              </div>
-            @endif
-            @if($message = Session::get('warning'))
-            <div class="alert alert-danger alert-dismissible" role="alert" id="mydiv">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>{{$message}}</strong>
-              </div>
-            @endif
-      <div class="box">
+          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Jadwal Piket</h3>
-              <a class="btn btn-app pull-right" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-edit"></i> Tambah Siswa
-              </a>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>No</th>
-                  <th>NISN</th>
-                  <th>Nama Siswa</th>
-                  <th>Jadwal Hari</th>
-                  <th>Opsi</th>
-                </tr>
-                </thead>
+              	<thead>
+              		 <tr>
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Jadwal Hari</th>
+                    <th>Opsi</th>
+	                </tr>
+              	</thead>
                 <tbody>
-                @foreach($data as $index => $data)
-                <tr>
-                  <td>{{$index + 1 }}</td>
-                  <td>{{$data->nisn}}
-                  </td>
-                  <td>{{$data->nama}}</td>
-                  <td>{{$data->jadwalhari}}</td>
-                  <td><form method="post" action="">
-                      <a href="{{action('piketcontroller@edit', $data->id)}}" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
-                    </form>
-                  </td>
-                </tr>
-                <div class="modal fade" id="deleting{{$data->id}}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Delete Data?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Yakin ingin menghapus data Jadwal Piket dengan nisn {{$data->nisn}}&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <form method="post" class="delete_form" action="{{action('siswacontroller@destroy', $data->id)}}">
-            {{csrf_field()}}
-            <input type="hidden" name="_method" value="DELETE"/>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-                @endforeach                
-                </tbody>
-                <tfoot>
-                <tr>
-                <th>No</th>
-                  <th>NISN</th>
-                  <th>Nama Siswa</th>
-                  <th>Jadwal Hari</th>
-                  <th>Opsi</th>
-                </tr>
-                </tfoot>
-              </table>
+                	@foreach($data as $number => $data)
+	                <tr>
+	                  <td>{{$number+1}}</td>
+	                  <td>{{$data->nisn}}</td>
+	                  <td>{{$data->jadwalhari}}</td>
+	                  <td>
+	                  	<button style="margin-right: -5px;" type="button" class="btn bg-orange margin" data-toggle="modal" data-target="#modal-edit-{{$data->id}}"><i class="fa fa-pencil"></i></button>
+	                  	<button type="button" class="btn bg-maroon margin del" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"><i class="fa fa-trash-o"></i></button>
+	                  </td>
+	                </tr>
+
+                {{-- form edit --}}
+                <div class="modal fade" id="modal-edit-{{$data->id}}" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    {!! Form::open(['route' => ['piket.update',$data->id],'method' => 'put']) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Edit Modal</h4>
+                      </div>
+                      <div class="modal-body">  
+                      <center> 
+                              <input type="hidden" name="id_delete" id="id_delete">
+                              <h4 class="statement">Ubah Data jadwal piket murid dengan NISN : {{$data->nisn}}</h4>
+                           </center>
+                      <label>Hari :</label>
+                        <select name="jadwalhari" class="form-control">
+                        <option value="{{$data->jadwalhari}}">{{$data->jadwalhari}}</option>
+                          <option value="Senin">Senin</option>
+                          <option value="Selasa">Selasa</option>
+                          <option value="Rabu">Rabu</option>
+                          <option value="Kamis">Kamis</option>
+                          <option value="Jum'at">Jum'at</option>
+                          <option value="Sabtu">Sabtu</option>
+                        </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                     {!! Form::close() !!}
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>      
+
+                    {{-- form hapus --}}
+                  <div class="modal fade" id="modal-delete-{{$data->id}}" style="display: none;">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                        {!! Form::open(['route' => ['piket.destroy',$data->id],'method' => 'delete']) !!}
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Delete Modal</h4>
+                          </div>
+                          <div class="modal-body">  
+                           <center> 
+                              <input type="hidden" name="id_delete" id="id_delete">
+                              <h3>Confirmation!</h3>
+                              <h4 class="statement">Apakah anda ingin menghapus ini?</h4>
+                           </center>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                          </div>
+                         {!! Form::close() !!}
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>      
+
+	                @endforeach
+              </tbody>
+              <tfoot>
+              		 <tr>
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Jadwal Hari</th>
+                    <th>Opsi</th>
+	                </tr>
+              	</tfoot>
+          	</table>
             </div>
             <!-- /.box-body -->
           </div>
+          <!-- /.box -->
       <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->
 
-  <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Jadwal Piket</h4>
-              </div>
-              <div class="modal-body">
-                <form method="post" action="{{url('mapel')}}">
-                {{csrf_field()}}
-                  
-                
+      {{-- form add --}}
+                <div class="modal fade" id="modal-default" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    {!! Form::open(['route' => 'piket.store','method' => 'post']) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Add Modal</h4>
+                      </div>
 
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" />
-              </div>
-              </form>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-    
-        
+                      <div class="modal-body">              
+                      <label>Nisn :</label>
+                      <input name="nisn" type="text" class="form-control" placeholder="..." required="">
+                      <br>
+                      <label>Hari :</label>
+                        <select name="jadwalhari" class="form-control">
+                          <option value="Senin">Senin</option>
+                          <option value="Selasa">Selasa</option>
+                          <option value="Rabu">Rabu</option>
+                          <option value="Kamis">Kamis</option>
+                          <option value="Jum'at">Jum'at</option>
+                          <option value="Sabtu">Sabtu</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    {!! Form::close() !!}
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>      
 
-        
 @endsection
