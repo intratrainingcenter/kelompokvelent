@@ -14,7 +14,7 @@ class SiswasTableSeeder extends Seeder
     {
         DB::table('siswas')->insert([
             [
-            'nisn' => '39809841098490',
+            'nisn' => Carbon::now()->format('Ym').'00001',
             'nama'	=>	'Valen',
             'jenis_kelamin' => 'Laki-Laki',
             'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -24,7 +24,7 @@ class SiswasTableSeeder extends Seeder
 
             ],
             [
-                'nisn' => '39809841098491',
+                'nisn' => Carbon::now()->format('Ym').'00002',
                 'nama'	=>	'Valir',
                 'jenis_kelamin' => 'Laki-Laki',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -34,7 +34,7 @@ class SiswasTableSeeder extends Seeder
     
             ],
             [
-                'nisn' => '39809841098492',
+                'nisn' => Carbon::now()->format('Ym').'00003',
                 'nama'  =>  'Valor',
                 'jenis_kelamin' => 'Laki-Laki',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -44,7 +44,7 @@ class SiswasTableSeeder extends Seeder
     
             ],
             [
-                'nisn' => '39809841098493',
+                'nisn' => Carbon::now()->format('Ym').'00004',
                 'nama'  =>  'Valkrie',
                 'jenis_kelamin' => 'Laki-Laki',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -54,7 +54,7 @@ class SiswasTableSeeder extends Seeder
     
             ],
             [
-                'nisn' => '39809841098494',
+                'nisn' => Carbon::now()->format('Ym').'00005',
                 'nama'  =>  'Value',
                 'jenis_kelamin' => 'Laki-Laki',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -64,7 +64,7 @@ class SiswasTableSeeder extends Seeder
     
             ],
             [
-                'nisn' => '39809841098495',
+                'nisn' => Carbon::now()->format('Ym').'00006',
                 'nama'  =>  'Valadin',
                 'jenis_kelamin' => 'Laki-Laki',
                 'tanggal_lahir' => Carbon::now()->format('Y-m-d H:i:s'),
