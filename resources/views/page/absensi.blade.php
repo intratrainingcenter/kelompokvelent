@@ -30,7 +30,7 @@
 	                  <td>{{$data->jumlah_murid}}</td>
 	                  <td>{{$data->wali_kelas}}</td>
 	                  <td>
-	                  	<button type="button" class="btn bg-olive margin">Pilih Kelas</button>
+	                  <a href="{{ route('absensi.show',$data->id) }}" type="button" class="btn bg-olive margin">Pilih Kelas</a>
 	                  </td>
 	                </tr>
 
