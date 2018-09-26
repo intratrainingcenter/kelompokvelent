@@ -24,13 +24,8 @@ Route::get('/index', function(){
 	return view('page.index');
 })->name('index');
 
-Route::resource('/siswa', 'siswacontroller');
-Route::get('/kelas', function(){
-	return view('page.kelas');
-})->name('kelas');
-Route::get('/mapel', function(){
-	return view('page.mapel');
-})->name('mapel');
+Route::resource('siswa', 'siswacontroller');
+ROute::resource('mapel', 'mapelcontroller');
 // Route::get('/absensi', function(){
 // 	return view('page.absensi');
 // })->name('absensi');
