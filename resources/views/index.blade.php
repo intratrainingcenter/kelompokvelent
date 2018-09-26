@@ -270,7 +270,13 @@
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@yield('js')
+<script>
+   setTimeout(function() { 
+      $('.alert').hide('slow'); 
+   }, 3000);
+</script>
 <!-- page script -->
 <script>
   $(function () {
