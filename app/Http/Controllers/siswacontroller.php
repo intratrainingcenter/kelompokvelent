@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\siswa;
+use App\kelas;
 class siswacontroller extends Controller
 {
     /**
@@ -13,9 +15,16 @@ class siswacontroller extends Controller
      */
     public function index()
     {
-        $data = siswa::all();
-        //dd($data);
-        return view('page.siswa', compact('data'));
+        // $data = siswa::all();
+        $data = DB::table('siswas')
+                ->join('kelas','kelas.id','=','siswas.kelas')
+                ->select('siswas.id','siswas.nisn','siswas.nama','siswas.tanggal_lahir','siswas.jenis_kelamin','kelas.nama_kelas')
+                ->orderBy('id')
+                ->get();
+                //dd($data);
+        $kelas = kelas::all();
+        // dd($kelas);
+        return view('page.siswa', compact('data', 'kelas'));
     }
 
     /**
@@ -37,13 +46,17 @@ class siswacontroller extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $this->validate($request,[
-            'nisn' => 'required',
-            'nama' => 'required'
-        ]);
+        $last = siswa::latest('id')->first();
+        if ($last == null) {
+            $number = intval(0 + 1);
+        } else {
+            $number = intval($last->id + 1);
+        }
+        $todaydate = date('Ym');
+        $nisn = $todaydate.sprintf('%05d',$number);
         $data = new siswa([
-            'nisn' => $request->get('nisn'),
-            'nama' => $request->get('nama'),
+            'nisn' => $nisn,
+            'nama' => $request->get('nama_murid'),
             'kelas' => $request->get('kelas'),
             'tanggal_lahir' => $request->get('tanggal_lahir'),
             'jenis_kelamin' => $request->get('jenis_kelamin')
@@ -85,15 +98,14 @@ class siswacontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nisn'    =>  'required',
-            'nama'     =>  'required'
-        ]);
+        
         $student = siswa::find($id);
-        $student->nisn = $request->get('nisn');
-        $student->nama = $request->get('nama');
+        $student->tanggal_lahir = $request->get('tanggal_lahir');
+        $student->jenis_kelamin = $request->get('jenis_kelamin');
+        $student->nama = $request->get('nama_murid');
+        $student->kelas = $request->get('kelas');
         $student->save();
-        return redirect()->route('siswa.index')->with('success', 'Data Updated');
+        return redirect()->route('siswa.index')->with('success','Edit Siswa Succesfully');
     }
 
     /**

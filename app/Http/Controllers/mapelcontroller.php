@@ -35,14 +35,16 @@ class mapelcontroller extends Controller
      */
     public function store(Request $request)
     {
-        
-        $this->validate($request,[
-            'id_mapel' => 'required',
-            'mapel' => 'required',
-            'pengajar' => 'required'
-        ]);
+        $last = mapel::latest('id')->first();
+        if ($last == null) {
+            $number = intval(0 + 1);
+        } else {
+            $number = intval($last->id + 1);
+        }
+        $todaydate = date('Ym');
+        $mapel = $todaydate.sprintf('%05d',$number);
         $data = new mapel([
-            'id_mapel' => $request->get('id_mapel'),
+            'id_mapel' => $mapel,
             'mapel' => $request->get('mapel'),
             'pengajar' => $request->get('pengajar'),
             ]);
@@ -82,7 +84,11 @@ class mapelcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = mapel::find($id);
+        $student->mapel = $request->get('mapel');
+        $student->pengajar = $request->get('pengajar');
+        $student->save();
+        return redirect()->route('mapel.index')->with('success','Edit Siswa Succesfully');
     }
 
     /**

@@ -109,6 +109,15 @@
 
 	                @endforeach
               </tbody>
+              <tfoot>
+              		 <tr>
+	                  <th>No</th>
+	                  <th>NAMA KELAS</th>
+	                  <th>JUMLAH MURID</th>
+	                  <th>WALI KELAS</th>
+	                  <th width="15%">OPTION</th>
+	                </tr>
+              	</tfoot>
           	</table>
             </div>
             <!-- /.box-body -->

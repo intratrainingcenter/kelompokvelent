@@ -24,7 +24,7 @@ Route::get('/index', function(){
 	return view('page.index');
 })->name('index');
 
-Route::resource('siswa', 'siswacontroller');
+Route::resource('/siswa', 'siswacontroller');
 ROute::resource('mapel', 'mapelcontroller');
 
 Route::resource('piket','piketcontroller');

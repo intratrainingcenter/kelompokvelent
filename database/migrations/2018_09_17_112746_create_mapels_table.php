@@ -15,7 +15,7 @@ class CreateMapelsTable extends Migration
     {
         Schema::create('mapels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_mapel',10);
+            $table->string('id_mapel');
             $table->string('mapel',20);
             $table->string('pengajar',20);
             $table->timestamps();

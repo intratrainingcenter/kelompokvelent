@@ -1,162 +1,158 @@
 @extends('index')
-
 @section('CHeader', 'Mata Pelajaran')
 @section('CActive', 'Mapel')
 @section('content')
-<script type="text/javascript">
-  setTimeout(fade_out, 3000);
-
-function fade_out() {
-  $("#mydiv").fadeOut().empty();
-}
-  </script>
-
 <!-- Main content -->
 <section class="content">
+	@if($success = Session::get('success'))
+    <div id="alert" class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h4><i class="icon fa fa-check"></i> Alert! </h4>{{$success}}.
+    </div>
+  @endif
+	<div style="position: relative; left: 89%;">
+		<button id="button_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Tambah Mapel</button>
+	</div>
       <!-- Small boxes (Stat box) -->
-      @if(count($errors) > 0)
-                <div class="alert alert-danger" id="mydiv">
-                 <ul>
-                 @foreach($errors->all() as $error)
-                  <li>{{$error}}</li>
-                 @endforeach
-                 </ul>
-                </div>
-                @endif
-                @if($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible" role="alert" id="mydiv">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>{{$message}}</strong>
-              </div>
-            @endif
-            @if($message = Session::get('warning'))
-            <div class="alert alert-danger alert-dismissible" role="alert" id="mydiv">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>{{$message}}</strong>
-              </div>
-            @endif
-      <div class="box">
+          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Mata Pelajaran</h3>
-             
-              <a class="btn btn-app pull-right" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-edit"></i> Tambah Mata Pelajaran
-              </a>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>No</th>
-                  <th>ID Mapel</th>
-                  <th>Mata Pelajaran</th>
-                  <th>Pengajar</th>
-                  
-                  <th>Opsi</th>
-                </tr>
-                </thead>
+              	<thead>
+              		 <tr>
+                    <th>No</th>
+                    <th>ID Mapel</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Pengajar</th>
+                    <th>Opsi</th>
+	                </tr>
+              	</thead>
                 <tbody>
-                @foreach($data as $index => $data)
-                <tr>
-                  <td>{{$index + 1 }}</td>
-                  <td>{{$data->id_mapel}}</td>
-                  <td>{{$data->mapel}}</td>
-                  <td>{{$data->pengajar}}</td>
-                  
-                  <td><form method="post" action="">
-                      <a href="{{action('mapelcontroller@edit', $data->id)}}" type="button" class="btn btn-warning">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleting{{ $data->id }}">Delete</button>
-                    </form>
-                  </td>
-                </tr>
-                <div class="modal fade" id="deleting{{$data->id}}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Delete Data?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Yakin ingin menghapus data <b>{{$data->mapel}}</b> dengan id_mapel : <b>{{$data->id_mapel}}</b>&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <form method="post" class="delete_form" action="{{action('mapelcontroller@destroy', $data->id)}}">
-            {{csrf_field()}}
-            <input type="hidden" name="_method" value="DELETE"/>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-                @endforeach                
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>No</th>
-                  <th>ID Mapel</th>
-                  <th>Mata Pelajaran</th>
-                  <th>Pengajar</th>
-                  
-                  <th>Opsi</th>
-                </tr>
-                </tfoot>
-              </table>
+                	@foreach($data as $number => $data)
+	                <tr>
+                    <td>{{$number + 1 }}</td>
+                    <td>{{$data->id_mapel}}</td>
+                    <td>{{$data->mapel}}</td>
+                    <td>{{$data->pengajar}}</td>
+	                  <td>
+	                  	<button style="margin-right: -5px;" type="button" class="btn bg-orange margin" data-toggle="modal" data-target="#modal-edit-{{$data->id}}"><i class="fa fa-pencil"></i></button>
+	                  	<button type="button" class="btn bg-maroon margin del" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"><i class="fa fa-trash-o"></i></button>
+	                  </td>
+	                </tr>
+                {{-- form edit --}}
+                <div class="modal fade" id="modal-edit-{{$data->id}}" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    {!! Form::open(['route' => ['mapel.update',$data->id],'method' => 'put']) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Edit Modal</h4>
+                      </div>
+                      <div class="modal-body">  
+                      <label>Mata Pelajaran :</label>
+                      <input name="mapel" type="text" class="form-control" placeholder="..." value="{{$data->mapel}}" required="">
+                      <br>
+                      <label>Pengajar :</label>
+                      <input name="pengajar" type="text" class="form-control" placeholder="..." value="{{$data->pengajar}}" required="">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                     {!! Form::close() !!}
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>      
+                    {{-- form hapus --}}
+                  <div class="modal fade" id="modal-delete-{{$data->id}}" style="display: none;">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                        {!! Form::open(['route' => ['mapel.destroy',$data->id],'method' => 'delete']) !!}
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Delete Modal</h4>
+                          </div>
+                          <div class="modal-body">  
+                           <center> 
+                              <input type="hidden" name="id_delete" id="id_delete">
+                              <h3>Confirmation!</h3>
+                              <h4 class="statement">Apakah anda ingin menghapus mapel {{$data->mapel}} ?</h4>
+                           </center>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                          </div>
+                         {!! Form::close() !!}
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>   
+	                @endforeach
+              </tbody>
+              <tfoot>
+              		 <tr>
+                    <th>No</th>
+                    <th>ID Mapel</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Pengajar</th>
+                    <th>Opsi</th>
+	                </tr>
+              	</tfoot>
+          	</table>
             </div>
             <!-- /.box-body -->
           </div>
+          <!-- /.box -->
       <!-- /.row (main row) -->
-
     </section>
     <!-- /.content -->
-
-  <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
-              </div>
-              <div class="modal-body">
-                <form method="post" action="{{url('mapel')}}">
-                {{csrf_field()}}
-              <div class="form-group has-success">
-                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>ID MAPEL</label>
-                  <input type="text" name="id_mapel" class="form-control" id="inputSuccess" placeholder="NISN ...">
-                  <span class="help-block">Help block with success</span>
-                </div>
-                <div class="form-group has-success">
-                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Mapel</label>
-                  <input type="text" name="mapel" class="form-control" id="inputSuccess" placeholder="Nama Siswa / Siswi ...">
-                  <span class="help-block">Help block with success</span>
-                </div>
-                <div class="form-group has-success">
-                  <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Pengajar</label>
-                  <input type="text" name="pengajar" class="form-control" id="inputSuccess" placeholder="Nama Siswa / Siswi ...">
-                  <span class="help-block">Help block with success</span>
-                </div>
-                
-                
-
-              </div>
-              
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" />
-              </div>
-              </form>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-    
-        
-
-        
+      {{-- form add --}}
+                <div class="modal fade" id="modal-default" style="display: none;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    {!! Form::open(['route' => 'mapel.store','method' => 'post']) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Add Modal</h4>
+                      </div>
+                      <div class="modal-body">              
+                      <label>Mata Pelajaran :</label>
+                      <input name="mapel" type="text" class="form-control 2" placeholder="..." required="">
+                      <br>
+                      <label>Pengajar :</label>
+                      <input name="pengajar" type="text" class="form-control 3" placeholder="..." required="">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    {!! Form::close() !!}
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>      
+@endsection
+@section('js')
+	  	<script>
+        	$(document).ready(function() {
+            // empty the input after button add click
+        		$('#button_add').click(function(event) {
+        			$('.1').val('');
+              $('.2').val('');
+              $('.3').val('');
+              $('.4').val('');
+              $('.5').val('');
+        		});
+          });
+      </script>
 @endsection
