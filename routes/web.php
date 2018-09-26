@@ -26,13 +26,8 @@ Route::get('/index', function(){
 
 Route::resource('siswa', 'siswacontroller');
 ROute::resource('mapel', 'mapelcontroller');
-// Route::get('/absensi', function(){
-// 	return view('page.absensi');
-// })->name('absensi');
-Route::get('/piket', function(){
-	return view('page.piket');
-})->name('piket');
 
+Route::resource('piket','piketcontroller');
 Route::resource('/kelas','kelascontroller');
 
 Route::resource('/absensi','absensicontroller');

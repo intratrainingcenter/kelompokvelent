@@ -26,7 +26,7 @@
         <li><a href="{{route('kelas.index')}}"><i class="fa fa-graduation-cap"></i> <span>Kelas</span></a></li>
         <li><a href="{{route('mapel.index')}}"><i class="fa fa-book"></i> <span>Mata Pelajaran</span></a></li>
         <li><a href="{{route('absensi.index')}}"><i class="fa fa-calendar"></i> <span>Absensi</span></a></li>
-        <li><a href="{{route('piket')}}"><i class="fa fa-trash"></i> <span>Jadwal Piket</span></a></li>
+        <li><a href="{{route('piket.index')}}"><i class="fa fa-trash"></i> <span>Jadwal Piket</span></a></li>
         
       </ul>
     </section>
