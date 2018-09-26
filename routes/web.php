@@ -34,15 +34,13 @@ Route::get('/mapel', function(){
 Route::get('/absensi', function(){
 	return view('page.absensi');
 })->name('absensi');
-Route::get('/piket', function(){
-	return view('page.piket');
-})->name('piket');
+
 
 
 // Route::get('/sidebar', function(){
 // 	return view('element.sidebar');
 // })->name('sidebar');
-Route::resource('/kelas','kelascontroller');
-
+Route::resource('kelas','kelascontroller');
+Route::resource('piket','piketcontroller');
 Route::resource('/indexresource', 'testpagecontrollerApi');
 

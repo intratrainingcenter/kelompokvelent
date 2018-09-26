@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\piket;
 
 class piketcontroller extends Controller
 {
@@ -13,7 +14,8 @@ class piketcontroller extends Controller
      */
     public function index()
     {
-        return('jadwal piket');
+        $data = piket::all();
+        return view('page.piket',compact('data'));
     }
 
     /**
@@ -34,7 +36,17 @@ class piketcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $this->validate($request,[
+            'nisn' => 'required',
+            'jadwalhari' => 'required'
+        ]);
+        $data = new piket([
+            'nisn' => $request->get('nisn'),
+            'jadwalhari' => $request->get('jadwalhari')
+        ]);
+        $data->save();
+        return redirect()->route('piket.index')->with('success','data tersimpan');
     }
 
     /**
@@ -56,7 +68,8 @@ class piketcontroller extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = piket::find($id);
+        return view('page.piket.editpiket',compact('data','id'));
     }
 
     /**
@@ -68,7 +81,16 @@ class piketcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'nisn' => 'required',
+            'jadwalhari' => 'required'
+        ]);
+        $data = piket::find($id);
+        $data->nisn = $request->get('nisn');
+        $data->jadwalhari = $request->get('jadwalhari');
+        
+        $data->save();
+        return redirect()->route('piket.index')->with('success','data tersimpan');
     }
 
     /**
@@ -79,6 +101,8 @@ class piketcontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = piket::find($id);
+        $data->delete();
+        return redirect()->route('piket.index')->with('success','data tersimpan');
     }
 }
