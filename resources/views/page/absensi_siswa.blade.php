@@ -78,7 +78,7 @@
 @section('js')
   <script>
     $(document).ready(function() {
-        
+       
     });
   </script>
 @endsection
