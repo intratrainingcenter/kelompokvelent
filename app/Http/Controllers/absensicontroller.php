@@ -17,9 +17,16 @@ class absensicontroller extends Controller
      */
     public function index()
     {
-        $data = kelas::all();
+        $data_class = kelas::all();
 
-        return view('page.absensi',['data' => $data]);
+        $data_absent = DB::table('siswas')
+                        ->join('absensis','absensis.nisn','=','siswas.nisn')
+                        ->join('kelas','siswas.kelas','=','kelas.id')
+                        ->select('siswas.nama', 'kelas.nama_kelas as kelas', 'siswas.nisn','absensis.status','absensis.id as id_absen')
+                        ->orderBy('id_absen', 'DESC')
+                        ->get();
+        
+        return view('page.absensi',['data_class' => $data_class,'data_absent'=>$data_absent]);
     }
 
     /**
@@ -40,7 +47,7 @@ class absensicontroller extends Controller
      */
     public function store(Request $request)
     {   
-     
+        
         // mengambil value dari radio button 
         for ($i=0; $i < $request->jumlah_data; $i++) { 
             $request_name='optionsRadios'.$i;
@@ -64,25 +71,32 @@ class absensicontroller extends Controller
         foreach (array_keys($data_information, null) as $key) {
             unset($data_information[$key]);
         }
-
-        //get data nisn
-        foreach ($data_student as $key => $value) {
-            $nisn[]=$value->nisn;
-        }
-
-        // set key kembali dari 0
-        $data_result = array_values($data_information);
         
-        foreach ($nisn as $key => $value) {
-            $data_save[] = [
-                'nisn' => $value,
-                'status' => $data_result[$key],
-            ];
+        // cek ada yg di absen nggak
+        if (empty($data_student)) {
+
+            return redirect()->route('absensi.index')->with('failed','Gagal tidak ada data siswa yang dikirim!!');
+        }else{
+
+             //get data nisn
+            foreach ($data_student as $key => $value) {
+                $nisn[]=$value->nisn;
+            }
+
+            // set key kembali dari 0
+            $data_result = array_values($data_information);
+            
+            foreach ($nisn as $key => $value) {
+                $data_save[] = [
+                    'nisn' => $value,
+                    'status' => $data_result[$key],
+                ];
+            }
+
+            absensi::insert($data_save);
+
+            return redirect()->route('absensi.index')->with('success','Berhasil menyimpan data siswa yang absen');
         }
-
-        absensi::insert($data_save);
-
-        return redirect()->route('absensi.index');
         
     }
 
@@ -119,7 +133,11 @@ class absensicontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($id,$request);
+        $data = absensi::find($id);
+        $data->status = $request->status;
+        $data->save();
+        return redirect()->route('absensi.index')->with('success','Berhasil mengedit status absen siswa ');;
     }
 
     /**
@@ -130,6 +148,9 @@ class absensicontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd($id);
+        $data = absensi::find($id);
+        $data->delete();
+        return redirect()->route('absensi.index')->with('success','Berhasil menghapus data absen');;
     }
 }
