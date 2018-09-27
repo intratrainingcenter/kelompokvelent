@@ -16,10 +16,7 @@ class CreateAbsensisTable extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nisn',30);
-            $table->string('total_absensi',10);
-            $table->string('sakit');
-            $table->string('ijin');
-            $table->string('tanpaketerangan');
+            $table->string('status');
             $table->timestamps();
         });
     }
