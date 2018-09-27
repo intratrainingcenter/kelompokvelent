@@ -80,6 +80,7 @@
                         </select>
                       <label>Kelas :</label>
                         <select name="kelas" class="form-control">
+                        <option value="{{$data->nama_kelas}}">{{$data->nama_kelas}}</option>
                           @foreach($kelas as $class)
                           <option value="{{$class->id}}">{{$class->nama_kelas}}</option>
                           @endforeach

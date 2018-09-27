@@ -18,7 +18,7 @@ class siswacontroller extends Controller
         // $data = siswa::all();
         $data = DB::table('siswas')
                 ->join('kelas','kelas.id','=','siswas.kelas')
-                ->select('siswas.id','siswas.nisn','siswas.nama','siswas.tanggal_lahir','siswas.jenis_kelamin','kelas.nama_kelas')
+                ->select('siswas.id','siswas.nisn','siswas.nama','siswas.tanggal_lahir','siswas.jenis_kelamin','siswas.kelas','kelas.nama_kelas')
                 ->orderBy('id')
                 ->get();
                 //dd($data);
