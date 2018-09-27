@@ -12,7 +12,7 @@ use App\Http\Middleware\sarkom;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('page.index');
 });
 Route::get('/test', function () {
 	return '<h1 align="center" style="margin-top:200px;">Serangan Mendadak,Main Kotor Curangi Saya</h1>';
@@ -21,29 +21,16 @@ Route::get('/test', function () {
 Route::get('/nama/{sarkom}','testpagecontroller@sarkom')->middleware('sarkom');
 
 Route::get('/index', function(){
-	return view('element.content');
+	return view('page.index');
 })->name('index');
 
-Route::get('/siswa', function(){
-	return view('page.siswa');
-})->name('siswa');
-Route::get('/kelas', function(){
-	return view('page.kelas');
-})->name('kelas');
-Route::get('/mapel', function(){
-	return view('page.mapel');
-})->name('mapel');
-Route::get('/absensi', function(){
-	return view('page.absensi');
-})->name('absensi');
-Route::get('/piket', function(){
-	return view('page.piket');
-})->name('piket');
+Route::resource('/siswa', 'siswacontroller');
+ROute::resource('mapel', 'mapelcontroller');
 
+Route::resource('piket','piketcontroller');
+Route::resource('/kelas','kelascontroller');
 
-// Route::get('/sidebar', function(){
-// 	return view('element.sidebar');
-// })->name('sidebar');
+Route::resource('/absensi','absensicontroller');
 
 Route::resource('/indexresource', 'testpagecontrollerApi');
 
