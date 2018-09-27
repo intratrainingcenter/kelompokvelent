@@ -14,7 +14,7 @@
   @endif
 
 	<div style="position: relative; left: 89%;">
-		<button id="button_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Add Class</button>
+		<button id="button_add" type="button" class="btn bg-olive margin" data-toggle="modal" data-target="#modal-default">Tambah Kelas</button>
 	</div>
 		
       <!-- Small boxes (Stat box) -->
@@ -59,13 +59,13 @@
                       <div class="modal-body">  
 
                       <label>Nama Kelas :</label>
-                      <input name="nama_kelas" type="text" class="form-control" placeholder="..." value="{{$data->nama_kelas}}">
+                      <input name="nama_kelas" type="text" class="form-control" placeholder="..." value="{{$data->nama_kelas}}" required="">
                       <br>
                       <label>Jumlah Murid :</label>
-                      <input name="jumlah_murid" type="number" class="form-control" placeholder="..." value="{{$data->jumlah_murid}}">
+                      <input name="jumlah_murid" type="number" class="form-control" placeholder="..." value="{{$data->jumlah_murid}}" required="">
                       <br>
                       <label>Wali Kelas :</label>
-                      <input name="wali_kelas" type="text" class="form-control" placeholder="..." value="{{$data->wali_kelas}}">
+                      <input name="wali_kelas" type="text" class="form-control" placeholder="..." value="{{$data->wali_kelas}}" required="">
 
                       </div>
                       <div class="modal-footer">
@@ -109,6 +109,15 @@
 
 	                @endforeach
               </tbody>
+              <tfoot>
+              		 <tr>
+	                  <th>No</th>
+	                  <th>NAMA KELAS</th>
+	                  <th>JUMLAH MURID</th>
+	                  <th>WALI KELAS</th>
+	                  <th width="15%">OPTION</th>
+	                </tr>
+              	</tfoot>
           	</table>
             </div>
             <!-- /.box-body -->
@@ -132,13 +141,13 @@
 
                       <div class="modal-body">              
                       <label>Nama Kelas :</label>
-                      <input name="nama_kelas" type="text" class="form-control class_name" placeholder="...">
+                      <input name="nama_kelas" type="text" class="form-control class_name" placeholder="..." required="">
                       <br>
                       <label>Jumlah Murid :</label>
-                      <input name="jumlah_murid" type="number" class="form-control amount_of_student" placeholder="...">
+                      <input name="jumlah_murid" type="number" class="form-control amount_of_student" placeholder="..." required="">
                       <br>
                       <label>Wali Kelas :</label>
-                      <input name="wali_kelas" type="text" class="form-control homeroom_teacher" placeholder="...">
+                      <input name="wali_kelas" type="text" class="form-control homeroom_teacher" placeholder="..." required="">
 
                     </div>
                     <div class="modal-footer">

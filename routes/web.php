@@ -25,19 +25,9 @@ Route::get('/index', function(){
 })->name('index');
 
 Route::resource('/siswa', 'siswacontroller');
-Route::get('/kelas', function(){
-	return view('page.kelas');
-})->name('kelas');
-Route::get('/mapel', function(){
-	return view('page.mapel');
-})->name('mapel');
-// Route::get('/absensi', function(){
-// 	return view('page.absensi');
-// })->name('absensi');
-Route::get('/piket', function(){
-	return view('page.piket');
-})->name('piket');
+ROute::resource('mapel', 'mapelcontroller');
 
+Route::resource('piket','piketcontroller');
 Route::resource('/kelas','kelascontroller');
 
 Route::resource('/absensi','absensicontroller');
