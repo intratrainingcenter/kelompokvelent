@@ -23,12 +23,12 @@
           <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
-              <li class=""><a href="#data_absen" data-toggle="tab" aria-expanded="false">Data Absen</a></li>
-              <li class="active"><a href="#start_absen" data-toggle="tab" aria-expanded="false">Mulai Absen</a></li>
+              <li class=""><a href="#start_absen" data-toggle="tab" aria-expanded="false">Mulai Absen</a></li>
+              <li class="active"><a href="#data_absen" data-toggle="tab" aria-expanded="false">Data Absen</a></li>
               <li class="pull-left header"><i class="fa fa-th"></i> Custom Tabs</li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane" id="data_absen">
+              <div class="tab-pane active" id="data_absen">
                 
                   <div class="box">
                     <div class="box-header">
@@ -140,7 +140,7 @@
 
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane active" id="start_absen">
+              <div class="tab-pane" id="start_absen">
                    <!-- Small boxes (Stat box) -->
                   <div class="box">
                     <div class="box-header">

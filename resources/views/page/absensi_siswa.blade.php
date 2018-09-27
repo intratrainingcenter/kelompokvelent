@@ -63,7 +63,8 @@
           	</table>
               <hr>
               <input type="hidden" name="jumlah_data" value="{{$data_count}}">
-              <button type="submit" class="btn bg-olive margin" style="position: relative; left: 90%;">Simpan</button>
+              <a href="{{route('absensi.index')}}" title="Kembali" class="btn btn-danger"><i class="fa fa-reply"></i> Kembali</a>
+              <button type="submit" class="btn bg-olive margin pull-right"><i class="fa  fa-send"></i> Simpan</button>
               {{ Form::close() }}
             </div>
             <!-- /.box-body -->

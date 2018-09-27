@@ -1,7 +1,7 @@
 @extends('index')
 
-@section('CHeader', 'Jadwal Piket')
-@section('CActive', 'Piket')
+@section('CHeader', 'Dashboard')
+@section('CActive', 'Dashboard')
 @section('content')
 
 <!-- Main content -->

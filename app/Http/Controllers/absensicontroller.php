@@ -47,57 +47,60 @@ class absensicontroller extends Controller
      */
     public function store(Request $request)
     {   
-        
-        // mengambil value dari radio button 
-        for ($i=0; $i < $request->jumlah_data; $i++) { 
-            $request_name='optionsRadios'.$i;
-            $data[] = $request->$request_name;
-        }
-
-        // mengambil value keterangan
-        foreach ($data as $key => $value) {
-            $data_information[] = $data[$key][1];
-        }
-
-        $data_student = array();
-        // cek apakah value keterangan tidak kosong
-        foreach ($data_information as $key => $value) {
-            if (!is_null($value[$key])) {
-                $data_student[] = siswa::find($data[$key][0]);
-            }
-        }
-
-        // remove null value dari data keterangan absen
-        foreach (array_keys($data_information, null) as $key) {
-            unset($data_information[$key]);
-        }
-        
-        // cek ada yg di absen nggak
-        if (empty($data_student)) {
+        if($request->jumlah_data == 0){
 
             return redirect()->route('absensi.index')->with('failed','Gagal tidak ada data siswa yang dikirim!!');
         }else{
-
-             //get data nisn
-            foreach ($data_student as $key => $value) {
-                $nisn[]=$value->nisn;
+            // mengambil value dari radio button 
+            for ($i=0; $i < $request->jumlah_data; $i++) { 
+                $request_name='optionsRadios'.$i;
+                $data[] = $request->$request_name;
             }
 
-            // set key kembali dari 0
-            $data_result = array_values($data_information);
+            // mengambil value keterangan
+            foreach ($data as $key => $value) {
+                $data_information[] = $data[$key][1];
+            }
+
+            $data_student = array();
+            // cek apakah value keterangan tidak kosong
+            foreach ($data_information as $key => $value) {
+                if (!is_null($value[$key])) {
+                    $data_student[] = siswa::find($data[$key][0]);
+                }
+            }
+
+            // remove null value dari data keterangan absen
+            foreach (array_keys($data_information, null) as $key) {
+                unset($data_information[$key]);
+            }
             
-            foreach ($nisn as $key => $value) {
-                $data_save[] = [
-                    'nisn' => $value,
-                    'status' => $data_result[$key],
-                ];
+            // cek ada yg di absen nggak
+            if (empty($data_student)) {
+
+                return redirect()->route('absensi.index')->with('failed','Gagal tidak ada data siswa yang dikirim!!');
+            }else{
+
+                //get data nisn
+                foreach ($data_student as $key => $value) {
+                    $nisn[]=$value->nisn;
+                }
+
+                // set key kembali dari 0
+                $data_result = array_values($data_information);
+                
+                foreach ($nisn as $key => $value) {
+                    $data_save[] = [
+                        'nisn' => $value,
+                        'status' => $data_result[$key],
+                    ];
+                }
+
+                absensi::insert($data_save);
+
+                return redirect()->route('absensi.index')->with('success','Berhasil menyimpan data siswa yang absen');
             }
-
-            absensi::insert($data_save);
-
-            return redirect()->route('absensi.index')->with('success','Berhasil menyimpan data siswa yang absen');
         }
-        
     }
 
     /**
